@@ -1,0 +1,19 @@
+# Python (Backend)
+backend/.venv/
+backend/__pycache__/
+*.py[cod]
+backend/.env
+
+# Angular (Frontend)
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Supabase & Secrets
+.env
+supabase/.temp/
