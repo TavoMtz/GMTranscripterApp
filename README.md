@@ -2,6 +2,7 @@
 App web que ayuda a las personas a tomar notas, documentar entrevistas o simplemente transcribir audios con un stack moderno de tecnologias.
 
 # Estructura de carpetas
+```
 transcribe-ai-app/
 ├── backend/                # Lógica de FastAPI
 │   ├── app/
@@ -27,3 +28,4 @@ transcribe-ai-app/
 │   └── custom-prompts.md   # Instrucciones para que el agente entienda tu DB
 ├── .gitignore              # ¡Crucial! Para no subir basura a GitHub
 └── README.md               # Tu documentación técnica
+```
