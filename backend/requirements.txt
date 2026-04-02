@@ -1,0 +1,7 @@
+fastapi
+uvicorn[standard]
+supabase
+openai-whisper
+python-multipart
+pydantic-settings
+python-dotenv
