@@ -1,0 +1,39 @@
+<aside class="sidebar">
+  <!-- Logo -->
+  <div class="sidebar-logo">
+    <span class="logo-text">
+      <span class="logo-deep">Deep</span><span class="logo-notes">Notes</span>
+    </span>
+    <span class="logo-sub">Audio intelligence</span>
+  </div>
+
+  <!-- Sessions List -->
+  <nav class="session-list" role="navigation" aria-label="Historial de sesiones">
+    <span class="section-label">Recientes</span>
+    @if (transcriptions.length === 0) {
+      <div class="empty-hint">
+        <span>Sin sesiones aún</span>
+      </div>
+    }
+
+    @for (t of transcriptions; track t.id) {
+      <button
+        class="session-item"
+        [class.active]="t.id === activeId"
+        (click)="selectSession(t)"
+        [title]="getTitle(t.filename)">
+
+        <div class="session-item-row">
+          <span class="session-title">{{ getTitle(t.filename) }}</span>
+          @if (getPrimaryTag(t.tags)) {
+            <span class="tag-chip {{ getTagClass(getPrimaryTag(t.tags)) }}">
+              {{ getPrimaryTag(t.tags) }}
+            </span>
+          }
+        </div>
+
+        <span class="session-date">{{ getRelativeDate(t.created_at) }}</span>
+      </button>
+    }
+  </nav>
+</aside>

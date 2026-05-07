@@ -1,0 +1,72 @@
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  height: 64px;
+  min-height: 64px;
+  border-bottom: 1px solid var(--dn-border);
+  background: var(--dn-surface);
+  flex-shrink: 0;
+  gap: 16px;
+}
+
+/* ── Session info ── */
+.session-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  overflow: hidden;
+  flex: 1;
+}
+
+.session-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--dn-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: var(--font-body);
+  letter-spacing: -0.2px;
+}
+
+.placeholder-title {
+  color: var(--dn-muted);
+  font-weight: 300;
+  font-size: 13px;
+}
+
+/* ── Pill Switch — card-style buttons ── */
+.view-switch {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.switch-btn {
+  padding: 7px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--dn-muted2);
+  background: transparent;
+  border: 1px solid transparent;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  white-space: nowrap;
+  letter-spacing: -0.1px;
+}
+
+.switch-btn:hover:not(.active) {
+  color: var(--dn-text);
+  background: rgba(255, 255, 255, 0.04);
+  border-color: var(--dn-border);
+}
+
+.switch-btn.active {
+  background: var(--dn-surface2);
+  border-color: var(--dn-border2);
+  color: var(--dn-text);
+  font-weight: 500;
+}

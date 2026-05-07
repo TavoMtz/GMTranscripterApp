@@ -5,3 +5,4 @@ openai-whisper
 python-multipart
 pydantic-settings
 python-dotenv
+groq

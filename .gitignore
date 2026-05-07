@@ -15,5 +15,5 @@ frontend/.env
 Thumbs.db
 
 # Supabase & Secrets
-.env
+**/.env
 supabase/.temp/

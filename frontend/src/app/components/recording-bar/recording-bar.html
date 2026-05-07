@@ -1,0 +1,93 @@
+<div class="recording-bar">
+  <!-- Hidden file input for importing audio -->
+  <input
+    #fileInput
+    type="file"
+    accept="audio/*"
+    style="display: none;"
+    (change)="onFileSelected($event)">
+
+  <div class="bar-inner">
+    <!-- Record / Stop button -->
+    <div class="record-btn-wrap">
+      <!-- Pulse ring — only visible during recording -->
+      @if (state() === 'recording') {
+        <span class="pulse-ring"></span>
+      }
+      <button
+        class="record-btn"
+        [class.recording]="state() === 'recording'"
+        [disabled]="state() === 'saved'"
+        (click)="toggleRecording()"
+        [attr.aria-label]="state() === 'recording' ? 'Detener grabación' : 'Iniciar grabación'">
+
+        <!-- Mic icon (idle / saved) -->
+        @if (state() !== 'recording') {
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+            <line x1="12" y1="19" x2="12" y2="23"/>
+            <line x1="8" y1="23" x2="16" y2="23"/>
+          </svg>
+        }
+
+        <!-- Stop icon (recording) -->
+        @if (state() === 'recording') {
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+               fill="currentColor" stroke="none">
+            <rect x="4" y="4" width="16" height="16" rx="2"/>
+          </svg>
+        }
+      </button>
+    </div>
+
+    <!-- Status text + waveform -->
+    <div class="status-area">
+      @if (state() === 'idle') {
+        <span class="status-text">Listo para grabar</span>
+      }
+      @if (state() === 'recording') {
+        <span class="status-text recording-text">
+          <span class="blink-dot">●</span> Grabando...
+        </span>
+        <!-- Waveform bars -->
+        <div class="waveform" aria-hidden="true">
+          @for (i of [1,2,3,4,5,6,7,8]; track i) {
+            <span class="wave-bar" [style.animation-delay]="(i * 0.08) + 's'"></span>
+          }
+        </div>
+      }
+      @if (state() === 'saved') {
+        <span class="status-text saved-text">
+          Grabación guardada → Procesando...
+        </span>
+      }
+
+      @if (errorMsg()) {
+        <span class="error-text">{{ errorMsg() }}</span>
+      }
+    </div>
+
+    <!-- Right side: import button + timer -->
+    <div class="bar-right">
+      <!-- Import file button (subtle) -->
+      @if (state() === 'idle') {
+        <button class="import-btn" (click)="openFileDialog()" title="Importar archivo de audio">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+          <span>Importar</span>
+        </button>
+      }
+
+      <!-- Timer -->
+      <span class="timer" [class.running]="state() === 'recording'">
+        {{ timerDisplay() }}
+      </span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="dashboard">
+  <!-- ── Left column: Sidebar ── -->
+  <app-sidebar
+    [transcriptions]="transcriptions()"
+    [activeId]="activeTranscription()?.id ?? null"
+    (sessionSelected)="onSessionSelected($event)">
+  </app-sidebar>
+
+  <!-- ── Right column: Main area ── -->
+  <div class="main-area">
+    <!-- Topbar -->
+    <app-topbar
+      [title]="getActiveTitle()"
+      [tag]="getActiveTag()"
+      [tagClass]="getActiveTagClass()"
+      [activeView]="activeView()"
+      (viewChanged)="onViewChanged($event)">
+    </app-topbar>
+
+    <!-- Content (scrollable) -->
+    <app-content-view
+      [transcription]="activeTranscription()"
+      [activeView]="activeView()">
+    </app-content-view>
+
+    <!-- Recording bar (fixed to bottom of main area) -->
+    <app-recording-bar
+      (recordingComplete)="onRecordingComplete()">
+    </app-recording-bar>
+  </div>
+</div>

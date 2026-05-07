@@ -1,0 +1,75 @@
+<div class="content-view">
+  <!-- Empty state -->
+  @if (!transcription) {
+    <div class="empty-state">
+      <div class="empty-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/>
+          <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+          <line x1="12" y1="19" x2="12" y2="23"/>
+          <line x1="8" y1="23" x2="16" y2="23"/>
+        </svg>
+      </div>
+      <p>Selecciona una sesión del historial<br>o graba una nueva nota de voz</p>
+    </div>
+  }
+
+  <!-- ══ Vista: Transcripción ══ -->
+  @if (transcription) {
+    <div [hidden]="activeView !== 'transcription'" class="panel panel-transcription">
+      <div class="transcription-content">
+        @for (para of getParagraphs(transcription.raw_text); track $index) {
+          <p class="transcription-paragraph">{{ para }}</p>
+        }
+        @if (!transcription.raw_text) {
+          <p class="no-content">Sin transcripción disponible.</p>
+        }
+      </div>
+
+      <!-- Audio player sutil al fondo -->
+      @if (transcription.audio_url) {
+        <div class="audio-row">
+          <span class="dn-label">Audio original</span>
+          <audio controls [src]="transcription.audio_url" class="audio-player">
+            Tu navegador no soporta el elemento de audio.
+          </audio>
+        </div>
+      }
+    </div>
+  }
+
+  <!-- ══ Vista: Deep Notes ══ -->
+  @if (transcription) {
+    <div [hidden]="activeView !== 'deepnotes'" class="panel panel-deepnotes">
+
+      <!-- Resumen -->
+      <div class="dn-section">
+        <span class="dn-label">Resumen</span>
+        <div class="dn-summary-block">
+          @if (transcription.summary) {
+            <p>{{ transcription.summary }}</p>
+          } @else {
+            <p class="no-content">Sin resumen disponible.</p>
+          }
+        </div>
+      </div>
+
+      <!-- Puntos clave / Tags -->
+      @if (getKeyPoints(transcription.tags).length > 0) {
+        <div class="dn-section">
+          <span class="dn-label">Puntos clave</span>
+          <div class="key-points-list">
+            @for (point of getKeyPoints(transcription.tags); track point) {
+              <div class="key-point-card">
+                <span class="key-point-dot"></span>
+                <span class="key-point-text">{{ point }}</span>
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+    </div>
+  }
+</div>

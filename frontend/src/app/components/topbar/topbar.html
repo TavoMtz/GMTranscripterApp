@@ -1,0 +1,31 @@
+<div class="topbar">
+  <!-- Session title + tag -->
+  <div class="session-info">
+    @if (title) {
+      <h2 class="session-title">{{ title }}</h2>
+    } @else {
+      <h2 class="session-title placeholder-title">Selecciona una sesión</h2>
+    }
+    @if (tag) {
+      <span class="tag-chip {{ tagClass }}">{{ tag }}</span>
+    }
+  </div>
+
+  <!-- View switch — card-style individual buttons -->
+  <div class="view-switch" aria-label="Vista activa">
+    <button
+      class="switch-btn"
+      [class.active]="activeView === 'transcription'"
+      (click)="setView('transcription')"
+      [attr.aria-pressed]="activeView === 'transcription'">
+      Transcripción
+    </button>
+    <button
+      class="switch-btn"
+      [class.active]="activeView === 'deepnotes'"
+      (click)="setView('deepnotes')"
+      [attr.aria-pressed]="activeView === 'deepnotes'">
+      Deep Notes
+    </button>
+  </div>
+</div>

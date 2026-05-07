@@ -1,0 +1,152 @@
+/* ================================================
+   Deep Notes — Global Styles
+   Paleta oscura, tipografía DM Sans + Syne
+   ================================================ */
+
+:root {
+  /* Backgrounds */
+  --dn-bg:       #0a0d14;
+  --dn-surface:  #111520;
+  --dn-surface2: #171c2b;
+
+  /* Borders */
+  --dn-border:  rgba(255, 255, 255, 0.07);
+  --dn-border2: rgba(255, 255, 255, 0.12);
+
+  /* Brand */
+  --dn-cyan:   #00e5c8;
+  --dn-violet: #7c5cfc;
+
+  /* Text */
+  --dn-text:   #f0f2ff;
+  --dn-muted:  #6a7290;
+  --dn-muted2: #8d95b8;
+
+  /* Accent */
+  --dn-record: #ff4d6a;
+  --dn-success: #10b981;
+  --dn-amber:  #ffb347;
+  --dn-pink:   #ff6482;
+
+  /* Typography */
+  --font-display: 'Syne', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+}
+
+/* ── Reset ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden; /* Dashboard is full-viewport, scrolling is per-column */
+}
+
+body {
+  background-color: var(--dn-bg);
+  color: var(--dn-text);
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 13.5px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Scrollbar oculta (pero funcional) ── */
+* {
+  scrollbar-width: none;       /* Firefox */
+  -ms-overflow-style: none;    /* IE/Edge */
+}
+*::-webkit-scrollbar {
+  display: none;               /* Chrome/Safari */
+}
+
+/* ── Tipografía ── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-body);
+  font-weight: 500;
+  color: var(--dn-text);
+}
+
+/* ── Tag chips de categorías ── */
+.tag-chip {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+/* Mapeo de categorías (case-insensitive en componentes) */
+.tag-science,
+.tag-physics,
+.tag-math,
+.tag-chemistry,
+.tag-biology {
+  background: rgba(124, 92, 252, 0.18);
+  color: #a68fff;
+}
+
+.tag-language,
+.tag-spanish,
+.tag-english,
+.tag-french,
+.tag-idioma {
+  background: rgba(0, 229, 200, 0.12);
+  color: #00e5c8;
+}
+
+.tag-tech,
+.tag-software,
+.tag-code,
+.tag-programming,
+.tag-trabajo {
+  background: rgba(255, 179, 71, 0.12);
+  color: #ffb347;
+}
+
+.tag-research,
+.tag-academic,
+.tag-study,
+.tag-idea {
+  background: rgba(255, 100, 130, 0.12);
+  color: #ff6482;
+}
+
+/* Fallback para cualquier otro tag */
+.tag-default {
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--dn-muted2);
+}
+
+/* ── Botones base ── */
+button {
+  font-family: var(--font-body);
+  font-size: 13px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+  transition: all 0.15s ease;
+}
+
+/* ── Label uppercase estilo Deep Notes ── */
+.dn-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--dn-cyan);
+}
+
+/* ── Divider ── */
+.dn-divider {
+  border: none;
+  border-top: 1px solid var(--dn-border);
+  margin: 1rem 0;
+}
