@@ -1,8 +1,6 @@
 export interface UploadResponse {
-    id: number;
     filename: string;
     transcription: string;
-    audio_url: string;
     summary: string;
     tags: string[];
 }

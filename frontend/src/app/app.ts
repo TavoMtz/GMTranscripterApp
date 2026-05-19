@@ -1,6 +1,6 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Transcription } from './models/transcription.model';
+import { Transcription, UploadResponse } from './models/transcription.model';
 import { TranscriptionService } from './services/transcription.service';
 import { Sidebar } from './components/sidebar/sidebar';
 import { Topbar, ActiveView } from './components/topbar/topbar';
@@ -52,8 +52,21 @@ export class App implements OnInit {
     this.activeView.set(view);
   }
 
-  onRecordingComplete() {
-    this.loadTranscriptions();
+  onRecordingComplete(response: UploadResponse) {
+    // Construir una Transcription temporal con los datos del POST
+    const newTranscription: Transcription = {
+      id: Date.now(),              // ID temporal hasta que el background lo persista
+      filename: response.filename,
+      audio_url: '',               // Se llenará cuando se recargue la lista
+      raw_text: response.transcription,
+      summary: response.summary,
+      tags: response.tags,
+      created_at: new Date().toISOString(),
+    };
+
+    // Agregar al inicio de la lista y seleccionar automáticamente
+    this.transcriptions.set([newTranscription, ...this.transcriptions()]);
+    this.activeTranscription.set(newTranscription);
   }
 
   getActiveTitle(): string {

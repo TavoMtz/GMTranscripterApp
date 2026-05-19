@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranscriptionService } from '../../services/transcription.service';
+import { UploadResponse } from '../../models/transcription.model';
 
 export type RecordingState = 'idle' | 'recording' | 'saved';
 
@@ -20,7 +21,7 @@ export type RecordingState = 'idle' | 'recording' | 'saved';
   styleUrl: './recording-bar.css'
 })
 export class RecordingBar implements OnDestroy {
-  @Output() recordingComplete = new EventEmitter<void>();
+  @Output() recordingComplete = new EventEmitter<UploadResponse>();
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
   state = signal<RecordingState>('idle');
@@ -84,8 +85,8 @@ export class RecordingBar implements OnDestroy {
     const filename = `nota-${this.formatDateForFilename()}.webm`;
 
     this.transcriptionService.uploadRecording(blob, filename).subscribe({
-      next: () => {
-        this.recordingComplete.emit();
+      next: (response) => {
+        this.recordingComplete.emit(response);
         this.resetToIdle();
       },
       error: (err) => {
@@ -125,8 +126,8 @@ export class RecordingBar implements OnDestroy {
     this.state.set('saved');
 
     this.transcriptionService.uploadAudio(file).subscribe({
-      next: () => {
-        this.recordingComplete.emit();
+      next: (response) => {
+        this.recordingComplete.emit(response);
         this.resetToIdle();
       },
       error: (err) => {

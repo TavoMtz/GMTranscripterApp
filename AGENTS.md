@@ -11,8 +11,8 @@ This repository is a monorepo containing a modern web app for audio transcriptio
 - **Tech Stack**: Uses `uvicorn` as the server, `supabase` client for DB/Storage, and `openai-whisper` for local transcription.
 - **Setup**: Ensure the Python virtual environment (`backend/.venv/`) is active and dependencies from `backend/requirements.txt` are installed.
 - **Running locally**: Run `uvicorn app.main:app --reload` from the `backend/` directory to start the dev server.
-- **Process Flow**: The backend relies on a temporary directory (`backend/temp/`) for saving audio uploads before transcription and uploading to Supabase Storage (`audio-notas` bucket).
-- **LLM Integrations**: An implementation plan exists for auto-summaries and tagging (`implementation_plan_llm.md`). GPT-4o-mini is the recommended default. Ensure the `OPENAI_API_KEY` is present in the `.env` file for these features.
+- **Process Flow**: The backend uses a non-blocking asynchronous architecture. Audio uploads are temporarily saved to `backend/temp/`, processed by an orchestrator service (Ears for transcription, Brain for analysis), and immediately returns a response to the user. Supabase storage upload and database persistence are handled via FastAPI BackgroundTasks.
+- **LLM Integrations**: Auto-summaries and tagging are implemented using Groq's Llama 3.3 70B model via the Brain service (`services/brain.py`). Ensure the `GROQ_API_KEY` is present in the `.env` file.
 
 ## Database & Storage (Supabase)
 - **Tables**: The primary table is `transcriptions`. It expects a `summary` field and a `tags` field (array of text `text[]`).

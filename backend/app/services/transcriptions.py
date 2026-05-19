@@ -1,9 +1,11 @@
 from ..database import supabase
 
 
-def save_transcription(filename: str, raw_text: str, audio_url: str) -> dict:
+def save_transcription(filename: str, raw_text: str, audio_url: str,
+                       summary: str = "", tags: list = None) -> dict:
     """
-    Guarda un nuevo registro de transcripción en la tabla 'transcriptions'.
+    Guarda un nuevo registro de transcripción en la tabla 'transcriptions',
+    incluyendo el resumen y las etiquetas generadas por Brain.
     user_id se deja en null (sin autenticación por ahora).
     Retorna la fila creada.
     """
@@ -11,6 +13,8 @@ def save_transcription(filename: str, raw_text: str, audio_url: str) -> dict:
         "filename": filename,
         "audio_url": audio_url,
         "raw_text": raw_text,
+        "summary": summary,
+        "tags": tags or [],
     }
     response = supabase.table("transcriptions").insert(data).execute()
     return response.data[0] if response.data else data
